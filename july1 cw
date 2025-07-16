@@ -1,0 +1,121 @@
+Date: 01.07.2025
+
+import java.util.*;
+public class listADT
+{   
+    private int[] data; //array named data
+    private int size;
+    private int capacity;
+    
+    public listADT(int capacity) //constructor it is called once the object is created
+    {
+        this.capacity=capacity;
+        data = new int[capacity];  //array creation
+        size=0;
+        
+    }
+    
+    
+    public void insert(int pos,int element){
+            if(size==capacity)
+            {
+                System.out.println("full!!!");
+                return;
+            }
+            if(pos<0 || pos>size)
+            {
+                System.out.println("Invalid Position");
+                return;
+            }
+            //Push the elements to the next place
+            for(int i=size-1;i>=pos;i--)
+            {
+                    data[i+1]=data[i];
+            }
+            data[pos]=element; //insert at specific position
+            size++;
+    }
+    
+
+        //delete 
+        public void delete(int pos)
+        {
+            if(isempty())
+            {
+             System.out.println("List is empty!!");
+             return;
+            }
+            if(pos<0 || pos>size){
+                System.out.println("invalid position");
+            }
+            for (int i=pos;i<size-1;i++){
+                data[i]=data[i+1];
+                
+            }
+            size--;
+        }
+        
+        //get he element
+        public int get(int pos)
+        {
+            if(pos<0 || pos>size)
+            {
+                System.out.println("Invalid Position");
+                return-1;
+            }
+            return data[pos];
+        }
+    
+    //update
+    public void update(int pos,int element)
+        {
+            if(pos <0 || pos>size){
+                System.out.println("Invalid Position");
+                return;
+            }
+            data[pos]=element;
+        }
+        
+    //empty
+    public boolean isempty(){
+        return size==0;
+    }
+    
+    //dispaly
+    public void display(){
+        if(isempty()){
+            System.out.println("List is Empty");
+        }
+        else{
+            System.out.println("List is...");
+            for(int i=0;i<size;i++)
+            {
+             System.out.println(data[i]);   
+            }
+            System.out.println();
+        }
+    }
+    
+    
+    public static void main(String[] args){
+        listADT ladt=new listADT(10);
+        ladt.insert(0,15);
+        ladt.insert(1,20);
+        ladt.insert(2,25);
+        ladt.insert(3,30);
+        
+        ladt.display();
+        
+        System.out.println("After update");
+        ladt.update(2,35);
+        ladt.display();
+        
+      System.out.println("After Delete");
+      ladt.delete(1);
+      ladt.display();
+      
+      System.out.println("The element is " +ladt.get(0));
+    }
+}
+
+
