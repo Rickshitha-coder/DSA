@@ -1,0 +1,153 @@
+Date: 05.07.2025
+Linkedlist for insert at front and end and specific position ad deletion fro front end specific position
+
+
+class Node{
+    int data;
+    Node next;
+}
+public class SingleLinkedList{
+    Node head;
+    void insertAtFront(int value)
+    {
+        Node newNode=new Node();
+        newNode.data = value; //20
+        newNode.next = head; //next is null
+        head = newNode;
+    }
+    void insertAtEnd(int value)
+    {
+        Node newNode=new Node();
+        newNode.data = value; //20
+        newNode.next = null; //next is null
+      
+        if(head==null)  //it checks head is empty means
+        {
+            head=newNode; //it uses the newNode value to the head
+        }
+        else
+        {
+            Node temp=head;
+            while(temp.next!=null)
+            {
+             temp=temp.next;
+             
+            }temp.next=newNode;
+        }
+    }
+    void insertAtPosition(int value,int position){
+        Node newNode=new Node();
+        newNode.data= value;
+        if(position==0)
+        {
+            newNode.next=head;
+            head= newNode;
+            return;
+        }
+        Node temp=head;
+        int index=0;
+        
+        while(temp!=null &&index<position-1)
+        {
+            temp =temp.next;
+            index++;
+            
+        }
+        if(temp==null)
+        {
+            System.out.println("Invalid");
+            return;
+        }
+        newNode.next=temp.next;
+        temp.next=newNode;    
+        
+    }
+    
+    //deletion
+    void deleteAtFront(){
+        if(head == null){
+            System.out.println("List is empty");
+            return;
+        }
+        System.out.println("Deleted is At Front" + head.data);
+        head=head.next;
+    }
+    
+    //deltete at end
+    void deleteAtEnd(){
+        if(head==null){
+            System.out.println("List is Empty");
+            return;
+        }
+        if(head.next == null){
+            System.out.println("Deleted data :" + head.data);
+            head= null;
+            return;
+        }
+        Node temp=head;
+        while(temp.next.next!=null){
+            temp=temp.next;
+        }
+        System.out.println("Deleted Data is at End : "+temp.next.data);
+        temp.next=null;
+    }
+    
+    //delete specific position
+    void deleteAtPosition(int position){
+        if(position<1 || head==null)
+        {
+            System.out.println("Invalid Position");
+            return;
+        }
+        if(position==1)
+        {
+            System.out.println("Deleted Data is : "+head.data);
+            head= head.next;
+            return;
+        }
+        Node temp=head;
+        for(int i=1; i<position-1 && temp!=null; i++)
+        {
+            temp= temp.next;
+        }
+       if(temp == null || temp.next==null){
+           System.out.println("Out of Range");
+       }
+       System.out.println("Deleted Data at specific posiiton : "+temp.next.data);
+       temp.next=temp.next.next;
+    }
+    void display()
+    {
+        Node temp=head;
+        while(temp!=null)
+        {
+            System.out.print(temp.data + " -> ");
+            temp=temp.next;
+        }
+        System.out.println("null");
+    }
+    
+    public static void main(String[] args)
+    {
+        SingleLinkedList sl=new SingleLinkedList();
+          
+        sl.insertAtEnd(10);
+        sl.insertAtEnd(20);
+        sl.insertAtEnd(30);
+        sl.insertAtFront(40);
+        sl.insertAtPosition(70,2);
+        System.out.println("***Linked List***");
+        sl.display();
+         sl.deleteAtFront();
+         System.out.println("***Linked List delete at front***");
+        sl.display();
+        sl.deleteAtEnd();
+          System.out.println("***Linked List delete at end***");
+        sl.display();
+        sl.deleteAtPosition(3);
+          System.out.println("***Linked List delete at specific postion***");
+        sl.display();
+        
+    }
+}
+
