@@ -1,0 +1,152 @@
+Date :09.07.2025
+
+Doubly Linked List for Insert
+
+class Student{
+    int stu_id;
+    String stu_name;
+    Student prev;
+    Student next;
+    public Student (int stu_id,String stu_name)
+    { //assigning 
+     this.stu_id=stu_id;
+     this.stu_name=stu_name;
+     this.prev=null; //initalise
+     this.next=null;
+    }
+}
+
+public class DoublyLinkedList
+{
+    Student head;
+    
+    public void insert(int stu_id,String stu_name)
+    {
+       Student newNode= new Student(stu_id,stu_name); 
+       
+       if(head==null){  //if the head is empty meand it assigns the newnode like head=newNode
+           head =newNode;
+           return;
+       }
+       
+       Student temp=head;
+       while(temp.next!=null)
+       {
+           temp= temp.next;
+       }
+       temp.next=newNode;  // it adds reference  to the new node  temp -->last node...
+       newNode.prev=temp;
+    }
+    
+    public void  display()
+    {
+        Student temp=head;
+        System.out.println("****list data are ****");
+        while(temp!=null)
+        {
+            System.out.println("\nId : "+temp.stu_id+" Name : "+temp.stu_name);
+            temp=temp.next;
+        }
+    }
+	public static void main(String[] args) {
+        DoublyLinkedList q= new DoublyLinkedList();
+        q.insert(10,"Rickshitha");
+        q.insert(20,"Rickshi");
+        q.insert(30,"Rick");
+        q.display();
+	}
+}
+
+class Student{
+    int stu_id;
+    String stu_name;
+    Student prev;
+    Student next;
+    public Student (int stu_id,String stu_name)
+    { //assigning 
+     this.stu_id=stu_id;
+     this.stu_name=stu_name;
+     this.prev=null; //initalise
+     this.next=null;
+    }
+}
+
+Doubly Linked List for delete
+public class DoublyLinkedList
+{
+    Student head;
+    
+    public void insert(int stu_id,String stu_name)
+    {
+       Student newNode= new Student(stu_id,stu_name); 
+       
+       if(head==null){  //if the head is empty meand it assigns the newnode like head=newNode
+           head =newNode;
+           return;
+       }
+       
+       Student temp=head;
+       while(temp.next!=null)
+       {
+           temp= temp.next;
+       }
+       temp.next=newNode;  // it adds reference  to the new node  temp -->last node...
+       newNode.prev=temp;
+    }
+    
+    //delete
+    public void  delete(int stu_id)
+    {
+         Student temp=head;
+         
+         while( temp!=null && temp.stu_id!=stu_id )
+         {
+           temp=temp.next;   
+         }
+         
+         if(temp==null)
+         {
+             System.out.println("Student Id : "+stu_id+" not found");
+             return;
+         }
+         
+         if(temp.prev!=null){
+             temp.prev.next=temp.next;
+         }
+         else{
+             head=temp.next;
+         }
+         
+         if(temp.next!=null){
+             temp.next.prev=temp.prev;
+         }
+         
+          System.out.println("Student ID: " + temp.stu_id + " deleted successfully");
+    }
+    
+    public void  display()
+    {
+        Student temp=head;
+        
+        while(temp!=null)
+        {
+            System.out.println("\nId : "+temp.stu_id+" Name : "+temp.stu_name);
+            temp=temp.next;
+        }
+    }
+	public static void main(String[] args) {
+        DoublyLinkedList q= new DoublyLinkedList();
+        System.out.println("****list data are ****");
+        q.insert(10,"Rickshitha");
+        q.insert(20,"Rickshi");
+        q.insert(30,"Rick");
+        q.display();
+        System.out.println("\nDeleted ID");
+        q.delete(10);
+        q.display();
+        System.out.println("\nDeleted ID");
+        q.delete(50);
+        q.display();
+	}
+}
+
