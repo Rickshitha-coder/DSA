@@ -1,0 +1,67 @@
+Date:15.07.2025
+Circular Doubly Linked List
+
+class CartNode{
+    String itemname;
+    int itemQuantity;
+    double itemPrice;
+    
+    CartNode prev,next;
+    //constructor
+    public CartNode(String itemname, int itemQuantity, double itemPrice){
+        this.itemname=itemname;
+        this.itemQuantity=itemQuantity;
+        this.itemPrice=itemPrice;
+        this.prev=null;
+        this.next=null;
+    }
+}
+
+class CircularCart{
+    private CartNode head=null;
+    //insert
+    public void insertAtEnd(String itemname,int itemQuantity,double itemPrice)
+    {
+        CartNode newNode= new CartNode(itemname,itemQuantity,itemPrice);
+        //if the list is empty
+        if(head==null)
+        {
+            head=newNode;
+            head.next=head;
+            head.prev=head;
+        }
+        //if the node is not empty
+        else{
+            CartNode tail=head.prev; //to get the last node
+            tail.next=newNode;
+            newNode.next=head;
+            newNode.prev=tail;
+            head.prev=newNode;
+        }
+        System.out.println(itemname + " added to the cart");
+    }
+    //Display
+    public void displayCart(){
+        if(head==null){
+            System.out.println("Shopping cart is empty");
+            return;
+        }
+        System.out.println("\nItems in Cart");
+       CartNode temp=head;
+       do{
+           System.out.println("Items :"+temp.itemname +" ,Quantity :"+temp.itemQuantity+" ,Price :"+temp.itemPrice);
+            temp=temp.next;  
+       }
+       while(temp!=head);
+    }
+}
+
+public class ShoppingCartDemo{
+    public static void main(String[] args){
+        CircularCart cart= new CircularCart();
+        cart.insertAtEnd("Chocolate",5,25);
+        cart.insertAtEnd("Coco cola",2,150);
+        cart.displayCart();
+    }
+    
+}
