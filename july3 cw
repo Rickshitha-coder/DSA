@@ -1,0 +1,23 @@
+Date:03.07.2025
+class Student
+{
+    String name;
+}
+public class Pointerexample{
+    
+    static void updatename(Student stu)
+    {
+        stu.name="Rickshi";
+        
+    }
+    
+    public static void main(String[] args){
+        Student s = new Student();
+        s.name="Rick";
+        System.out.println("Before changing the name : "+s.name);
+        updatename(s);
+        System.out.println("After Changing the name : "+s.name);
+        
+    }
+}
+
