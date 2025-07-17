@@ -1,0 +1,109 @@
+package july;
+import java.util.Scanner;
+class Student
+{
+	int s_id;
+	String s_name;
+	
+	//constructor
+	Student (int s_id, String s_name) 
+	{
+		this.s_id=s_id;
+		this.s_name=s_name;
+		
+	}
+	void display() {
+		System.out.println("ID : "+s_id+" Name : "+s_name);
+	}
+}
+
+public class july17 {
+	static int top=-1;  //static means it will be used for particular class like object
+	static  final int size=5;  //final means constant it cannpt be changed
+	static Student[] sARRAY=new Student[size];
+	
+	public static void push(Student s)
+	{
+		if(top==size-1)
+		{
+			System.out.println("Registration full"); //stack overflow
+		}
+		else {
+			top=top+1;
+			 sARRAY[top]=s;
+			System.out.println(s.s_id+" "+s.s_name+ " is registered ");
+		}
+	}
+	
+	public static void pop() {
+		if(top==-1)
+		{
+			System.out.println("Registration is Not available"); //stack is empty
+		}
+		else
+		{
+			
+			System.out.println("Your Registration is Cancel");
+			sARRAY[top--].display();  //sARRAy is object becuase we use student class as ARRAY
+	
+		}
+		
+	}
+	
+	public static void display()
+	{
+		if(top==-1)
+		{
+			System.out.println("No Registration is found");
+		}
+		else 
+		{
+			System.out.println("Student Registration Details");
+			for(int i=top;i>=0;i--) {
+				sARRAY[i].display();
+			}
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int choice;
+		
+		do {
+			 System.out.println("----Student Registration----");
+	         System.out.println("1.Register Student");
+	         System.out.println("2. Cancel last registration");
+	         System.out.println("3. Display all current registrations");
+	         System.out.println("4. Exit");
+	         System.out.print("Enter your choice: ");
+	         
+	         choice=sc.nextInt();
+	         sc.nextLine();
+	         switch(choice) {
+		         case 1:
+		        	 System.out.print("Enter Student ID to register: ");
+		        	 int id=sc.nextInt();
+		        	 sc.nextLine();
+		        	 System.out.print("Enter Student Name to register: ");
+		        	 String name=sc.next();
+		        	 push(new Student(id,name));
+		        	 break;
+		         case 2:
+		        	 pop();
+		        	 break;
+		         case 3:
+		        	 display();
+		        	 break;
+		         case 4:
+		        	 System.out.println("Exiting ...");
+		        	 break;
+		        default:
+		        	System.out.println("Enter the choice between (1-4)");
+	          }
+       }while(choice!=4);
+		
+	}
+		
+
+}
