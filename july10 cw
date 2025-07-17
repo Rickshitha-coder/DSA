@@ -1,0 +1,124 @@
+Date : 10/07/2025
+
+class Node{
+    int emp_id;
+    String emp_name;
+    Node prev, next;
+    
+    public Node(int emp_id, String emp_name)
+    {
+        this.emp_id=emp_id;
+        this.emp_name=emp_name;
+        this.prev=null;
+        this.next=null;
+    }
+}
+class EmployeeNode{
+    Node head;
+    public void insertatEnd(int emp_id,String emp_name)
+    {
+    Node newNode=new Node(emp_id,emp_name);
+    // it check whether is head is there are not
+        if (head==null){
+            head= newNode;
+            return;
+        }
+        //if already having the head
+        Node temp=head;
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        temp.next=newNode;
+        newNode.prev=temp;
+    }
+    //insert at front
+    public void insertatFront(int emp_id,String emp_name)
+    {
+     Node newNode=new Node(emp_id,emp_name);
+    
+     if(head==null){
+         head= newNode;
+         return;
+     }
+     //if head is not null
+     newNode.next=head;
+     head.prev=newNode;
+     head=newNode;
+    }
+    
+    //insert at specific position
+    
+    public void insertatPosition(int emp_id,String emp_name,int pos)
+    {
+    //if the position in the first node
+    if(pos<=1){
+        insertatFront(emp_id,emp_name);  //reuse the funciton call insertatFront
+        return; 
+    }
+    //if the postion is after the 1st node
+    Node newNode=new Node(emp_id,emp_name);
+     Node temp=head;
+    int count=1;
+    //to select the previous node of mentioned position
+    while(temp!=null && count<pos-1)
+     {
+         temp=temp.next;
+         count++;
+         
+     }
+     //if it is last position
+     if(temp.next==null || temp ==null){
+         insertatEnd(emp_id,emp_name);
+         return;
+     }
+     
+     newNode.next=temp.next;
+     newNode.prev=temp;
+     temp.next.prev=newNode;
+     temp.next=newNode;
+    }
+    public void displayBackward(){
+        Node temp=head;
+        if(temp==null){
+            System.out.println("List is Empty");
+            return;
+        }
+        
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        
+        System.out.println("List Data are in Backward");
+        while(temp!=null){
+            System.out.println("\nEmployee Id : "+temp.emp_id+" ,Name : "+temp.emp_name);
+            temp=temp.prev;
+        }
+    }
+    public void  displayForward()
+    {
+      Node temp=head;
+        
+        while(temp!=null)
+        {
+            System.out.println("\nId : "+temp.emp_id+" Name : "+temp.emp_name);
+            temp=temp.next;
+        }
+    }
+    
+}
+public class Doubly
+{
+	public static void main(String[] args) {
+	    EmployeeNode q=new EmployeeNode();
+	   
+	     q.insertatEnd(21,"Rickshitha");
+	    q.insertatEnd(2,"Rickshi");
+	    q.insertatEnd(22,"Rick");
+	    q.insertatPosition(25,"Rickshi A",2); //cpmes at last before one because backward
+	      System.out.println("\nBackwared");
+	    q.displayBackward();
+	    System.out.println("\nForwared");
+	    q.displayForward();
+		
+	}
+}
