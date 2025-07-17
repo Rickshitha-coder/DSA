@@ -1,0 +1,93 @@
+Date : 30.06.2025
+Array program
+import java.util.*;
+public class ArrayImplementation
+{
+	public static void main(String[] args) {
+	    Scanner s=new Scanner(System.in);  //scanner object creation
+	    
+	    System.out.println("Enter the Size: "); 
+	    
+	    int size = s.nextInt(); //to get the user input
+	    
+	    int[] array1 = new int[size]; // array decalaration in that square box we should mention as the size 
+	    
+	    System.out.println("Enter " +size+" numbers"); //enter 5 numbers
+	    
+	    for(int i=0; i<size;i++)
+	    {
+	        array1[i] =s.nextInt(); //to insert the element in an array
+	    }
+	    System.out.println("Array Elements are");
+	     for(int i=0; i<size;i++)
+	    {
+	        System.out.println("At "+i+" = "+array1[i]);
+	    }
+	    
+	    }
+	}
+	
+Largest Number
+import java.util.*;
+public class ArrayImplementation
+{
+    public static void main(String[] args)
+    {
+        Scanner s=new Scanner(System.in);
+        
+        System.out.println("Enter The size :");
+        
+        int size =s.nextInt();
+        
+        int[] array2=new int[size]; //array creation
+        
+        System.out.println("Enter "+size+" numbers");
+        
+        for(int i=0;i<size;i++)
+        {
+            array2[i]=s.nextInt();  //input statement
+        }
+        int largest=array2[0]; //10 20 14 12
+        for(int i=1;i<size;i++) //i=2 i=3 i=4
+        {
+            if(array2[i] >  largest) //20>10  //14>20 //12>20
+            {
+                largest=array2[i];
+            }
+        }
+        /*
+        largest =10 array2[1]=20  array2[2]=14 aaray2[3]=12 
+        */
+        
+        System.out.println("Largest element in the array is "+largest);
+    }
+}
+
+To Calucalte Sum and average
+import java.util.*;
+public class ArrayImplementation{
+    public static void main(String[] args){
+        Scanner scan = new Scanner(System.in);
+        
+        System.out.println("Enter the size");
+        
+        int size=scan.nextInt();
+        
+        int[] array3=new int[size];
+        
+        System.out.println("Enter "+size+" numbers");
+        
+        for(int i=0;i<size;i++)
+        {
+        array3[i]=scan.nextInt();
+        }
+        int sum1=0; //initalise to add
+        for(int i=0;i<size;i++)
+        {
+            sum1+=array3[i];
+        }
+        float average =(float)sum1/size;  //first sum and size should be int type we will convert to float using(float) bcz average is a float type
+        System.out.println("Sum ="+sum1);
+        System.out.println("Average ="+average);
+    }
+}
