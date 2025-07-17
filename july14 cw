@@ -1,0 +1,62 @@
+Date : 14.07.2025
+class CircularNode
+{
+    String itemName;
+    double itemPrice;
+    CircularNode next;
+    
+    public CircularNode(String itemName,double itemPrice)
+    {
+        this.itemName=itemName;
+        this.itemPrice=itemPrice;//constuctor
+        this.next=null;
+    }
+}
+class CircularCart
+{
+    private CircularNode last;
+    
+    public CircularCart()
+    {
+        this.last = null;
+    }
+    public void addItem(String itemName,double itemPrice)
+    {
+        CircularNode newNode = new CircularNode(itemName,itemPrice);
+        if(last==null)
+        {
+            last=newNode;
+            last.next=last;
+        }
+        else
+        {
+            newNode.next=last.next;
+            last.next=newNode;
+            last=newNode;
+        }
+        System.out.println("*Successfully added item at the cart*");
+    }
+    public void display()
+    {
+        if(last==null)
+        {
+            System.out.println("list is empty");
+        }
+        CircularNode temp = last.next;
+        System.out.println("items in the cart are");
+        do{
+          System.out.println("Name="+temp.itemName+"Price="+temp.itemPrice);
+          temp=temp.next;
+        }while(temp!=last.next);
+    }
+}
+public class CircularLinkedList
+{
+    public static void main(String[] args){
+        CircularCart cc= new CircularCart();
+        cc.addItem("Noodle",57.00);
+        cc.addItem("CornFlakes",900);
+        cc.addItem("Honey",80.00);
+        cc.display();
+    }
+}
