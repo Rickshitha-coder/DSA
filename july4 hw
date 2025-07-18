@@ -1,0 +1,72 @@
+Date : 3/7/25
+ You are developing a student record management module for a college system. The module uses an array to store student IDs. When a student drops out or graduates, their ID should be deleted from the list. Implement a program that allows: • Insertion of student IDs • Display of all student IDs • Deletion of a student ID (by value) • Display updated list Sample Input and Output: Enter number of student IDs to add: 5 Enter student IDs: 101 102 103 104 105 Student List: 101 102 103 104 105 Enter student ID to delete: 103 Student List after deletion: 101 102 104 105
+
+
+import java.util.Scanner;
+class Student {
+    int id;
+}
+
+public class Studentlist {
+    static void insertStudentIDs(Student[] students, int n, Scanner sc) {
+        System.out.println("Enter student IDs: ");
+        for (int i = 0; i < n; i++) {
+            students[i] = new Student(); // create a new student objects in memory and assign its refrence
+            students[i].id = sc.nextInt();
+        }
+    }
+
+    static void displayStudentIDs(Student[] students, int n) {
+        for (int i = 0; i < n; i++) {
+            System.out.print(students[i].id + " ");
+        }
+        System.out.println();
+    }
+
+    static int deleteStudentByID(Student[] students, int n, int id) {
+        int pos = -1;
+        for (int i = 0; i < n; i++) {
+            if (students[i].id == id) {   //  Find the position of the ID to delete
+                pos = i;
+                break;
+            }
+        }
+
+        if (pos == -1) {   //  If not found, print and return same size
+            System.out.println("ID not found!");
+            return n;
+        }
+
+        for (int i = pos; i < n - 1; i++) {
+            students[i] = students[i + 1]; //Shift remaining students left to overwrite the deleted one
+        }
+
+        students[n - 1] = null; // clear last duplicate
+        System.out.println("Deleted ID: " + id);
+        return n - 1; // new size
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Student[] students = new Student[100]; // fixed size
+
+        System.out.print("Enter number of student IDs to add: ");
+        int n = sc.nextInt();
+
+        insertStudentIDs(students, n, sc);
+
+        System.out.println("Student List:");
+        displayStudentIDs(students, n);
+
+        System.out.print("Enter student ID to delete: ");
+        int id = sc.nextInt();
+
+        n = deleteStudentByID(students, n, id);
+
+        System.out.println("Student List after deletion:");
+        displayStudentIDs(students, n);
+
+        sc.close();
+    }
+}
