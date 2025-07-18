@@ -1,0 +1,119 @@
+Date: 5-7-25
+ A hospital maintains a patient queue using a singly linked list. Each node contains: • Patient ID (int) • Patient Name (String) Patients are added at the end of the list as they arrive. Patients can leave the queue in three ways: 1. Front Deletion: A patient completes consultation and leaves (deletion from front). 2. Position-based Deletion: A patient is transferred to another department (delete at a given position). 3. End Deletion: A patient leaves without consultation (delete from end). • Create a node class for Patient with ID and name. • Implement the following operations: o insertAtEnd() – to add a new patient. o deleteFromFront() – when consultation is done. o deleteAtPosition(pos) – transferred to another department. o deleteFromEnd() – leaves without consultation. • Display the patient queue after each operation.
+
+class Node {
+    int id;
+    String name;
+    Node next;
+}
+
+public class Patient {
+    Node head;
+
+    void insertatEnd(int id, String name) {
+        Node newNode = new Node();
+        newNode.id = id;
+        newNode.name = name;
+        newNode.next = null;
+
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+        System.out.println("Inserted Patient ID = " + id + ", Name = " + name);
+    }
+
+    // Delete from Front (Consultation Done)
+    void deleteatfront() {
+        if (head == null) {
+            System.out.println("Queue is empty. No Patient to delete from front");
+        } else {
+            System.out.println("Patient Completed ID = " + head.id + ", Name = " + head.name);
+            head = head.next;
+        }
+    }
+
+    // Delete at Given Position
+    void deleteatposition(int pos) {
+        if (head == null) {
+            System.out.println("Queue is empty. No patient to delete");
+            return;
+        }
+        if (pos == 1) {
+            System.out.println("Patient Transferred ID = " + head.id + ", Name = " + head.name);
+            head = head.next;
+            return;
+        }
+        Node temp = head;
+        for (int i = 1; i < pos - 1 && temp != null; i++) {
+            temp = temp.next;
+        }
+        if (temp == null || temp.next == null) {
+            System.out.println("Out of Range");
+            return; 
+        }
+        System.out.println("Patient Transferred ID = " + temp.next.id + ", Name = " + temp.next.name);
+        temp.next = temp.next.next;
+    }
+
+    // Delete at End
+    void deleteatEnd() {
+        if (head == null) {
+            System.out.println("Queue is empty. No patient to delete at end");
+            return;
+        }
+        if (head.next == null) {
+            System.out.println("Patient Left without Consultation ID = " + head.id + ", Name = " + head.name);
+            head = null;
+            return;
+        } else {
+            Node temp = head;
+            while (temp.next.next != null) {
+                temp = temp.next;
+            }
+            System.out.println("Patient Left without Consultation ID = " + temp.next.id + ", Name = " + temp.next.name);
+            temp.next = null;
+        }
+    }
+
+    // Display Queue
+    void displayqueue() {
+        if (head == null) {
+            System.out.println("Patient Queue is Empty");
+            return;
+        }
+        Node temp = head;
+        System.out.println("Current Patient Queue:");
+        while (temp != null) {
+            System.out.print("[ID = " + temp.id + ", Name = " + temp.name + "] --> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        Patient q = new Patient();
+
+        q.insertatEnd(1, "Rickshi");
+        q.insertatEnd(2, "Preethi");
+        q.insertatEnd(3, "Durga");
+        q.insertatEnd(4, "Nami");
+        q.displayqueue();
+
+        q.deleteatfront();
+        q.displayqueue();
+
+        q.deleteatposition(2);
+        q.displayqueue();
+
+        q.deleteatEnd();
+        q.displayqueue();
+    }
+}
+
