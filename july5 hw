@@ -1,0 +1,102 @@
+Date: 4-7-25 
+The college library maintains a queue of books that need to be arranged on shelves. The books arrive in batches and need to be inserted into a linked list in different ways depending on priority: 1. High-priority books (e.g., reference books) must be inserted at the front of the list. 2. Normal books are inserted at the end of the list. 3. Books requested by specific departments should be inserted at a given position (e.g., after position 2 for Science, after position 4 for Engineering). Functional Requirements: 1. Insert at Front – Add a high-priority book to the front of the list. 2. Insert at End – Add a regular book to the end of the list. 3. Insert at Position – Insert a book at a specific position in the list. 4. Display List – Show the current book queue.
+class Node {
+    String bookName; // Book title
+    Node next; // Pointer to next node
+}
+public class Library {
+    Node head;
+
+    // Insert high-priority book at front
+    void insertAtFront(String book) {
+        Node newNode = new Node();
+        newNode.bookName = book;
+        newNode.next = head; // Link new node to current head
+        head = newNode; // Update head to new node
+        System.out.println("Inserted '" + book + "' at front (High Priority).");
+    }
+
+    // Insert normal book at end
+    void insertAtEnd(String book) {
+        Node newNode = new Node();
+        newNode.bookName = book;
+        newNode.next = null;
+
+        if (head == null) {
+            head = newNode; // Empty list
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next; // Traverse to last node
+            }
+            temp.next = newNode; // Attach at end
+        }
+        System.out.println("Inserted '" + book + "' at end (Normal Priority).");
+    }
+
+    // Insert book at specific position
+    void insertAtPosition(String book, int position) {
+        Node newNode = new Node();
+        newNode.bookName = book;
+
+        if (position == 1) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            Node temp = head;
+            int count = 1;
+
+            while (temp != null && count < position - 1) {
+                temp = temp.next;
+                count++;
+            }
+
+            if (temp == null) {
+                System.out.println("Position out of range. Inserting at end instead.");
+                insertAtEnd(book);
+                return;
+            }
+
+            newNode.next = temp.next;
+            temp.next = newNode;
+        }
+        System.out.println("Inserted '" + book + "' at position " + position + ".");
+    }
+
+    // Display the current queue
+    void display() {
+        if (head == null) {
+            System.out.println("Library queue is empty.");
+            return;
+        }
+
+        Node temp = head;
+        System.out.println("Current Library Queue:");
+        while (temp != null) {
+            System.out.print(temp.bookName + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        Library q = new Library();
+
+        // Insert high-priority books
+        q.insertAtFront("HTML");
+        q.insertAtFront("JAVASCRIPT");
+
+        // Insert normal books
+        q.insertAtEnd("BOOTSTRAP");
+        q.insertAtEnd(" ANGULAR JS");
+
+        // Insert books for specific departments
+        q.insertAtPosition("BOOTSTRAP 5", 4);
+        q.insertAtPosition("CSS", 3);
+
+        // Display final list
+        q.display();
+    }
+}
+
