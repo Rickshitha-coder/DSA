@@ -1,0 +1,74 @@
+Date: 01.07.2025
+1. You are managing a list of student roll numbers for a classroom. You need to insert roll numbers as students enter and display the list after each insertion. Implement a Java program to: • Insert student roll numbers at a given position. • Display the updated list after each insertion. Sample Input: Insert roll number 101 at position 0. Insert roll number 105 at position 1. Insert roll number 103 at position 1 (push 105 to next). Display after each insertion. Sample Output: Inserted 101 at position 0 Current List: 101 Inserted 105 at position 1 Current List: 101 105 Inserted 103 at position 1 Current List: 101 103 105
+import java.util.*;
+
+public class list {   
+    private int[] data; // array named data
+    private int size;
+    private int capacity;
+
+    public list(int capacity) { // constructor called once the object is created
+        this.capacity = capacity;
+        data = new int[capacity]; // array creation
+        size = 0;
+    }
+
+    public void insert(int pos, int element) {
+        if (size == capacity) {
+            System.out.println("List is full!");
+            return;
+        }
+        if (pos < 0 || pos > size) {
+            System.out.println("Invalid Position");
+            return;
+        }
+        // Shift elements to the right
+        for (int i = size - 1; i >= pos; i--) {
+            data[i + 1] = data[i];
+        }
+        data[pos] = element; // insert at specific position
+        size++;
+    }
+
+
+ // update with push logic
+public void update(int pos, int element) {
+    if (size == capacity) {
+        System.out.println("List is full! Cannot push and update.");
+        return;
+    }
+    if (pos < 0 || pos >= size) {
+        System.out.println("Invalid Position");
+        return;
+    }
+    // Shift elements to the right to make space
+    for (int i = size - 1; i >= pos; i--) {
+        data[i + 1] = data[i];
+    }
+    data[pos] = element;
+    size++;
+}
+
+
+    // display
+    public void display() {
+        System.out.println("List is...");
+        for (int i = 0; i < size; i++) {
+            System.out.println(data[i] + " ");
+        }
+        System.out.println("\n");
+    }
+
+    public static void main(String[] args) {
+        list ladt = new list(10);
+        ladt.insert(0, 101);
+        ladt.insert(1, 105);
+        
+
+        ladt.display();
+
+        System.out.println("After update:");
+        ladt.update(1, 103);
+        ladt.display();
+    }
+}
