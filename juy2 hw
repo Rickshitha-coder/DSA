@@ -1,0 +1,150 @@
+Date: 02.07.2025
+1.A teacher wants to enter marks for 3 students in 2 subjects (e.g., Math and Science). Create a Java program using a 2D array to: • Accept the marks from the user • Display the marks in a table format Sample output: Enter marks for 3 students in 2 subjects (Math, Science): Student 1: Math: 85 Science: 90 Student 2: Math: 78 Science: 88 Student 3: Math: 92 Science: 95 Student Math Science S1 S2 S3 85 90 78 88 92 95
+import java.util.*;
+public class mark{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int students = 3;
+        int subjects = 2; 
+        int[][] marks = new int[students][subjects];
+
+        System.out.println("Enter marks for 3 students in 2 subjects (Math, Science):");
+
+        // Accept marks
+        for (int i = 0; i < students; i++) {
+            System.out.println("Student " + (i + 1) + ":");
+            System.out.print("Math: ");
+            marks[i][0] = sc.nextInt();
+            System.out.print("Science: ");
+            marks[i][1] = sc.nextInt();
+        }
+
+        // Display table
+        System.out.println("\nStudent\tMath\tScience");
+        for (int i = 0; i < students; i++) {
+            System.out.print("S" + (i + 1) + "\t");
+            for (int j = 0; j < subjects; j++) {
+                System.out.print(marks[i][j] + "\t");
+            }
+            System.out.println();
+        }
+    }
+}
+
+
+
+
+2. Create a Java program to manage daily attendance of employees using a 2D array. Each record should contain: • Employee ID • Employee Name • Status (Present or Absent) Implement the following operations: 1. Mark attendance (Insert) 2. Display attendance list 3. Update attendance status 4. Delete employee from the list
+import java.util.*;
+
+public class employee {
+    static int maxRowSize = 100;
+    static String[][] employeeList = new String[maxRowSize][3]; // [ID, Name, Status]
+    static int size = 0;
+
+    // Insert
+    public static void insert(String id, String name, String status) {
+        if (size >= maxRowSize) {
+            System.out.println("List is full!");
+            return;
+        }
+        employeeList[size][0] = id;
+        employeeList[size][1] = name;
+        employeeList[size][2] = status;
+        size++;
+        System.out.println("Attendance marked successfully!");
+    }
+
+    // Display
+    public static void display() {
+        if (size == 0) {
+            System.out.println("No records found!");
+            return;
+        }
+        System.out.println("Employee Attendance List:");
+        System.out.println("ID\tName\tStatus");
+        for (int i = 0; i < size; i++) {
+            System.out.println(employeeList[i][0] + "\t" + employeeList[i][1] + "\t" + employeeList[i][2]);
+        }
+    }
+
+    // Update
+    public static void update(int pos, String newStatus) {
+        if (pos < 0 || pos >= size) {
+            System.out.println("Invalid position!");
+            return;
+        }
+        employeeList[pos][2] = newStatus;
+        System.out.println("Status updated successfully!");
+    }
+
+    // Delete
+    public static void delete(int pos) {
+        if (pos < 0 || pos >= size) {
+            System.out.println("Invalid position!");
+            return;
+        }
+        for (int i = pos; i < size - 1; i++) {
+            employeeList[i][0] = employeeList[i + 1][0];
+            employeeList[i][1] = employeeList[i + 1][1];
+            employeeList[i][2] = employeeList[i + 1][2];
+        }
+        size--;
+        System.out.println("Employee deleted successfully!");
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\nEmployee Attendance System");
+            System.out.println("1. Mark Attendance");
+            System.out.println("2. Display Attendance");
+            System.out.println("3. Update Attendance Status");
+            System.out.println("4. Delete Employee");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+
+            choice = sc.nextInt();
+            sc.nextLine(); //after integer string will be used for that purpose we will use nextLine
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Employee ID: ");
+                    String id = sc.nextLine();
+                    System.out.print("Enter Employee Name: ");
+                    String name = sc.nextLine();
+                    System.out.print("Enter Status (Present/Absent): ");
+                    String status = sc.nextLine();
+                    insert(id, name, status);
+                    break;
+
+                case 2:
+                    display();
+                    break;
+
+                case 3:
+                    System.out.print("Enter position to update (0 to " + (size - 1) + "): ");
+                    int posUpdate = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Enter new status (Present/Absent): ");
+                    String newStatus = sc.nextLine();
+                    update(posUpdate, newStatus);
+                    break;
+
+                case 4:
+                    System.out.print("Enter position to delete (0 to " + (size - 1) + "): ");
+                    int posDelete = sc.nextInt();
+                    delete(posDelete);
+                    break;
+
+                case 5:
+                    System.out.println("Exiting... !");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        } while (choice != 5);
+    }
+}
