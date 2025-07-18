@@ -1,0 +1,95 @@
+Date: 9-7-25
+ You are building a system for a hospital's emergency room. Patients are registered and added to a waiting list in the order they arrive. Each patient has: • A patient ID • A name • A severity level Operations: Insert patient at the end (when they arrive). Delete patient at a given position (if they leave). Display current queue.
+
+class Patient {
+    int patientId;
+    String name;
+    int severityLevel;
+    Patient next;
+
+    public Patient(int patientId, String name, int severityLevel) {
+        this.patientId = patientId;
+        this.name = name;
+        this.severityLevel = severityLevel;
+        this.next = null;
+    }
+}
+
+public class WaitingList {
+    Patient head;
+
+    // Insert patient at end
+    public void insertPatient(int patientId, String name, int severityLevel) {
+        Patient newPatient = new Patient(patientId, name, severityLevel);
+
+        if (head == null) {
+            head = newPatient;
+            return;
+        }
+
+        Patient temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = newPatient;
+    }
+
+    // Delete patient at given position (1-based)
+    public void deletePatientAtPosition(int position) {
+        if (head == null) {
+            System.out.println("Waiting list is empty!");
+            return;
+        }
+
+        Patient temp = head;
+
+        if (position == 1) {
+            System.out.println("Deleting Patient ID: " + temp.patientId);
+            head = temp.next;
+            return;
+        }
+
+        for (int i = 1; temp != null && i < position - 1; i++) {
+            temp = temp.next;
+        }
+
+        if (temp == null || temp.next == null) {
+            System.out.println("Position " + position + " does not exist.");
+            return;
+        }
+
+        System.out.println("Deleting Patient ID: " + temp.next.patientId);
+        temp.next = temp.next.next;
+    }
+
+    // Display waiting list
+    public void displayQueue() {
+        if (head == null) {
+            System.out.println("Waiting list is empty!");
+            return;
+        }
+
+        Patient temp = head;
+        System.out.println("\nCurrent Waiting List:");
+        while (temp != null) {
+            System.out.println("ID: " + temp.patientId + " | Name: " + temp.name + " | Severity: " + temp.severityLevel);
+            temp = temp.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        WaitingList q = new WaitingList();
+
+        System.out.println("Pateints are..");
+        q.insertPatient(101, "Rickshi", 12);
+        q.insertPatient(102, "Ricks", 25);
+        q.insertPatient(103, "Rickshitha", 93);
+
+        q.displayQueue();
+
+        System.out.println("\nDeleting patient at position 2...");
+        q.deletePatientAtPosition(2);
+
+        q.displayQueue();
+    }
+}
