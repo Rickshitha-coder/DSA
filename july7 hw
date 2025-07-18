@@ -1,0 +1,87 @@
+Date: 7-7-25
+ 1. You are asked to implement a basic student management system where each student has a roll number and name. Use a singly linked list to manage student records. You should implement the following operations: • Insert at the beginning • Insert at the end • Insert at a specific position
+
+class Node {
+    int data;
+    String name;
+    Node next;
+}
+
+public class Student {
+    Node head;
+
+    void insertAtFront(int value, String name) {
+        Node newNode = new Node();
+        newNode.data = value;
+        newNode.name = name;
+        newNode.next = head;
+        head = newNode;
+    }
+
+    void insertAtEnd(int value, String name) {
+        Node newNode = new Node();
+        newNode.data = value;
+        newNode.name = name;
+        newNode.next = null;
+
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+    }
+
+    void insertAtPosition(int value, String name, int position) {
+        Node newNode = new Node();
+        newNode.data = value;
+        newNode.name = name;
+
+        if (position == 0) {
+            newNode.next = head;
+            head = newNode;
+            return;
+        }
+
+        Node temp = head;
+        int index = 0;
+
+        while (temp != null && index < position - 1) {
+            temp = temp.next;
+            index++;
+        }
+
+        if (temp == null) {
+            System.out.println("Invalid");
+            return;
+        }
+
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+
+    void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print("(" + temp.data + ", " + temp.name + ") -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+        Student sl = new Student();
+
+        sl.insertAtEnd(10, "Rickshi");
+        sl.insertAtEnd(20, "Rick");
+        sl.insertAtEnd(30, "Nami");
+        sl.insertAtFront(40, "Durga");
+        sl.insertAtPosition(70, "Selvi", 2);
+
+        System.out.println("***Linked List***");
+        sl.display();
+    }
+}
