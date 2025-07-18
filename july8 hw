@@ -1,0 +1,50 @@
+Date: 08.07.2025
+
+1.	Find the time and space complexity for the following code and explain
+ 
+Time Complexity
+•	The for loop runs from i = 0 to i < arr.length.
+•	So, if the array has n elements, the loop runs n times.
+•	Each iteration does a constant-time operation: total += arr[i];.
+So, the time complexity is: Time Complexity= O(n) 
+ Space Complexity
+•	The function uses only:
+o	One integer variable total
+o	One integer loop counter i
+So, the space complexity is: Space Complexity=O(1)
+ Final Answer
+•	Time Complexity: O(n)
+•	Space Complexity: O(1)
+
+
+________________________________________
+2. Determine time and space complexity. 
+ Time Complexity
+•	There are two nested loops:
+o	The outer loop runs n times.
+o	For each iteration of the outer loop, the inner loop also runs n times.
+•	So the total number of print operations is n × n = n².
+Time Complexity= O(n2) 
+
+ Space Complexity
+•	There are only:
+o	Loop variables i and j.
+Space Complexity= O(1) 
+Final Answer
+•	Time Complexity: O(n2)
+•	Space Complexity: O(1)
+________________________________________
+3.Recursive factorial
+ 
+Time Complexity
+•	Each call to factorial(n) makes one recursive call to factorial(n - 1).
+•	This continues until n reaches 0.
+•	So there are n recursive calls.
+Time Complexity= O(n) 
+
+Space Complexity
+•	Because it is recursive, each call is placed on the call stack.
+Space Complexity= O(n) 
+Final Answer
+•	Time Complexity: O(n)
+•	Space Complexity: O(n)
