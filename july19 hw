@@ -1,0 +1,92 @@
+Date: 19-7-25 A college help desk uses a ticketing system to manage student queries. Students are served in the order they raise their queries — First-Come, First-Served (FIFO). Implement this system using a Queue with array-based implementation and switch-case menu. Features to Implement 1. Raise a Ticket – (Enqueue) 2. Resolve a Ticket – (Dequeue) 3. Display All Tickets 4. Exit
+
+package julyHometask;
+import java.util.*;
+class College{
+	int front,rear,capacity;
+	String[] tickets;
+	
+	College(int size){
+		front=rear=0;
+		capacity = size;
+		tickets = new String[capacity];
+	}
+	
+	public void raise(String value) {
+		if(rear==capacity) {
+			System.out.println("Queue is full");
+			return;
+		}
+		else {
+			tickets[rear]=value;
+			rear++;
+			System.out.println("Tickets Raised : "+value);
+		}
+	}
+	
+	public void resolve() {
+		if(front==rear) {
+			 System.out.println("No active tickets in the system.");
+	            return;
+	        }
+		  System.out.println("Ticket Resolved: " + tickets[front]);
+	        for (int i = 0; i < rear - 1; i++) {
+	            tickets[i] = tickets[i + 1];
+	        }
+	        rear--;
+	    }
+
+	    public void displayTickets() {
+	        if (front == rear) {
+	            System.out.println("No active tickets in the system.");
+	            return;
+	        }
+	        System.out.println("Active Tickets:");
+	        for (int i = front; i < rear; i++) {
+	            System.out.println((i + 1) + ". " + tickets[i]);
+	        }
+	    }
+	
+}
+public class july19hw {
+
+	public static void main(String[] args) {
+		 Scanner sc = new Scanner(System.in);
+	       College queue = new College(5);
+	        int choice;
+
+	        do {
+	            System.out.println("\n===== College Help Desk Ticket System =====");
+	            System.out.println("1. Raise a Ticket");
+	            System.out.println("2. Resolve a Ticket");
+	            System.out.println("3. Display All Tickets");
+	            System.out.println("4. Exit");
+	            System.out.print("Enter your choice: ");
+	            choice = sc.nextInt();
+	            sc.nextLine(); // consume newline
+
+	            switch (choice) {
+	                case 1:
+	                    System.out.print("Enter your query/ticket: ");
+	                    String value = sc.nextLine();
+	                    queue.raise(value);
+	                    break;
+	                case 2:
+	                    queue.resolve();
+	                    break;
+	                case 3:
+	                    queue.displayTickets();
+	                    break;
+	                case 4:
+	                    System.out.println("Exiting system. Thank you!");
+	                    break;
+	                default:
+	                    System.out.println("Invalid choice! Try again.");
+	            }
+	        } while (choice != 4);
+
+	        sc.close();
+	    }
+	}
+
+
