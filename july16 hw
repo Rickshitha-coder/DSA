@@ -1,0 +1,95 @@
+Date: 16-7-25 Your college is conducting a coding seminar limited to 5 students. Students register one after the other. However, if more students register than the limit, the system cannot accept new registrations. Due to frequent cancellations and last-minute changes, students may withdraw their registration, and the system should allow that too. You are asked to implement the system using a stack, where: • Push = New student registration (student ID only) • Pop = Cancel last registration • Peek = Check who registered last • Display = Show all current registrations (top to bottom) Show menu with options: 1. Register student ID (Push) 2. Cancel last registration (Pop) 3. View last registration (Peek) 4. Display all current registrations 5. Exit When max limit is reached → “Stack overflow! Seminar full.” When trying to cancel from empty list → “Stack underflow! No registrations to remove.” Accurate display of IDs in reverse order of registration (LIFO).
+
+package julyHometask;
+
+
+import java.util.Scanner;
+
+class SeminarStack {
+    int top;
+    int size;
+    int[] studentIDs;
+
+    public SeminarStack(int size) {
+        this.size = size;
+        studentIDs = new int[size];
+        top = -1;
+    }
+
+    public void register(int studentID) {
+        if (top == size - 1) {
+            System.out.println("Stack overflow! Seminar full.");
+        } else {
+            studentIDs[++top] = studentID;
+            System.out.println("Student ID " + studentID + " registered successfully.");
+        }
+    }
+
+    public void cancel() {
+        if (top == -1) {
+            System.out.println("Stack underflow! No registrations to remove.");
+        } else {
+            System.out.println("Registration for Student ID " + studentIDs[top--] + " cancelled.");
+        }
+    }
+
+    public void viewLast() {
+        if (top == -1) {
+            System.out.println("No registrations yet.");
+        } else {
+            System.out.println("Last registered Student ID: " + studentIDs[top]);
+        }
+    }
+
+    public void displayAll() {
+        if (top == -1) {
+            System.out.println("No registrations yet.");
+        } else {
+            System.out.println("Current registrations (latest first):");
+            for (int i = top; i >= 0; i--) {
+                System.out.println(studentIDs[i]);
+            }
+        }
+    }
+}
+
+public class july16hw {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        SeminarStack stack = new SeminarStack(5);
+
+        while (true) {
+            System.out.println("\n****Coding Seminar Registration Menu ****");
+            System.out.println("1. Register student ID");
+            System.out.println("2. Cancel last registration");
+            System.out.println("3. View last registration");
+            System.out.println("4. Display all current registrations");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Student ID to register: ");
+                    int id = sc.nextInt();
+                    stack.register(id);
+                    break;
+                case 2:
+                    stack.cancel();
+                    break;
+                case 3:
+                    stack.viewLast();
+                    break;
+                case 4:
+                    stack.displayAll();
+                    break;
+                case 5:
+                    System.out.println("Exiting... Thank you!");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid choice. Please select from 1-5.");
+            }
+        }
+    }
+}
