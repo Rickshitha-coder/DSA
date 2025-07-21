@@ -1,0 +1,92 @@
+Date: 15-7-25 
+A hospital maintains a circular doubly linked list to manage the queue of patients waiting for consultation in the Outpatient Department (OPD). Each patient has the following details: • Patient ID • Patient Name • Department (e.g., General, ENT, Cardiology) The hospital wants to perform the following operations: 1. Insert a new patient at the end of the queue when a new patient arrives. 2. Display the list of patients currently in the queue, in forward order. 3. Display the list in reverse order to review the most recent entries.
+
+package julyHometask;
+
+class Node {
+    String patientName;
+    int patientId;
+    String department;
+
+    Node prev, next;
+
+    public Node(String patientName, int patientId, String department) {
+        this.patientName = patientName;
+        this.patientId = patientId;
+        this.department = department;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+class PatientQueue {
+    private Node head = null;
+
+    //  Insert at end
+    public void insertAtEnd(String patientName, int patientId, String department) {
+        Node newNode = new Node(patientName, patientId, department);
+
+        if (head == null) {
+            head = newNode;
+            head.next = head;
+            head.prev = head;
+        } else {
+            Node tail = head.prev;
+
+            tail.next = newNode;
+            newNode.prev = tail;
+
+            newNode.next = head;
+            head.prev = newNode;
+        }
+        System.out.println("Patient '" + patientName + "' added to the queue.");
+    }
+
+    //  Display in forward order
+    public void displayForward() {
+        if (head == null) {
+            System.out.println("No patients in the queue.");
+            return;
+        }
+
+        System.out.println("\nPatients in queue (Forward Order):");
+        Node temp = head;
+        do {
+            System.out.println("ID: " + temp.patientId + ", Name: " + temp.patientName + ", Department: " + temp.department);
+            temp = temp.next;
+        } while (temp != head);
+    }
+
+    //  Display in reverse order
+    public void displayReverse() {
+        if (head == null) {
+            System.out.println("No patients in the queue.");
+            return;
+        }
+
+        System.out.println("\nPatients in queue (Reverse Order):");
+        Node tail = head.prev;
+        Node temp = tail;
+        do {
+            System.out.println("ID: " + temp.patientId + ", Name: " + temp.patientName + ", Department: " + temp.department);
+            temp = temp.prev;
+        } while (temp != tail);
+    }
+}
+
+public class july15hw {
+    public static void main(String[] args) {
+        PatientQueue queue = new PatientQueue();
+
+        // Inserting patients
+        queue.insertAtEnd("Rickshitha", 101, "General");
+        queue.insertAtEnd("Rickshi", 102, "ENT");
+        queue.insertAtEnd("Rick", 103, "Cardiology");
+
+        // Display forward
+        queue.displayForward();
+
+        // Display reverse
+        queue.displayReverse();
+    }
+}
