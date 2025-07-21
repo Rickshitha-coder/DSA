@@ -1,0 +1,135 @@
+Date: 10-7-25 
+At a college registration desk, students form a queue. This queue is managed using a doubly linked list. Each student has a roll number and name. Insert at Front Insert at Position Delete from Front Delete from End Display Backward
+
+
+class Node{
+    int roll;
+    String name;
+    Node prev,next;
+    
+    public Node(int roll,String name){
+        this.roll=roll;
+        this.name=name;
+        this.prev=null;
+        this.next=null;
+    }
+}
+
+class StudentNode{
+    Node head;
+    
+    public void insertatend(int roll,String name)
+    {
+        Node newNode=new Node(roll,name);
+        if(head==null){
+            head=newNode;
+            return;
+        }
+        
+        Node temp=head;
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        
+        temp.next=newNode;
+        newNode.prev=temp;
+    }
+    
+    
+    public void insertatfront(int roll,String name)
+    {
+        Node newNode=new Node(roll,name);
+        
+        if(head==null){
+            head=newNode;
+            return;
+        }
+        
+        newNode.next=head;
+        head.prev=newNode;
+        head=newNode;
+        
+    }
+    
+    public void insertatposition(int roll,String name,int pos)
+{
+    if(pos <= 1){
+        insertatfront(roll,name);
+        return;
+    }
+
+    Node newNode = new Node(roll,name);
+    Node temp = head;
+    int count = 1;
+
+    while(temp != null && count < pos - 1){
+        temp = temp.next;
+        count++;
+    }
+
+    if(temp == null){
+        
+        insertatend(roll,name);
+        return;
+    }
+
+    if(temp.next == null){
+        
+        temp.next = newNode;
+        newNode.prev = temp;
+        return;
+    }
+
+    // inserting in middle
+    newNode.next = temp.next;
+    newNode.prev = temp;
+    temp.next.prev = newNode;
+    temp.next = newNode;
+}
+
+    
+    public void displayback(){
+        Node temp=head;
+        if(temp==null){
+            System.out.println("List is Empty");
+            return;
+        }
+        
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        
+        
+        while(temp!=null){
+            System.out.println("\nStudent  Roll No : "+temp.roll+" ,Name : "+temp.name);
+            temp=temp.prev;
+        }
+    }
+     public void  displayForward()
+    {
+      Node temp=head;
+        
+        while(temp!=null)
+        {
+            System.out.println("\nId : "+temp.roll+" Name : "+temp.name);
+            temp=temp.next;
+        }
+    }
+    
+}
+
+public class Doubly
+{
+	public static void main(String[] args) {
+	    StudentNode q=new StudentNode();
+	   q.insertatfront(0,"Rickshitha A");
+	   q.insertatend(1,"Rickshitha");
+	   q.insertatend(2,"Rickshi");
+	   q.insertatend(3,"Rick");
+	   q.insertatposition(2,"Ric",3);
+	   System.out.println("Backward Queue");
+	   q.displayback();
+	    System.out.println("Forward Queue");
+	    q.displayForward();
+	}
+}
