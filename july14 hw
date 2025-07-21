@@ -1,0 +1,57 @@
+Date : 14.07.2025
+You are building an employee attendance roster for a company that operates in rotational shifts. Employees are arranged in a circular manner to represent the rotation cycle. When a new employee joins, their name is added to the end of the rotation list. The HR can display the current roster in order. Create a circular linked list to store employee names. Each node should store: • Employee name Implement: • insertEmployee(String name) → Insert at end • displayRoster() → Show all employees in rotation order
+class Node {
+    String name;
+    Node next;
+
+    Node(String name) {
+        this.name = name;
+        this.next = null;
+    }
+}
+
+public class EmployeeRoster {
+    private Node head;
+
+    // Insert employee at the end of the roster
+    public void insertEmployee(String name) {
+        Node newNode = new Node(name);
+
+        if (head == null) {
+            head = newNode;
+            newNode.next = head; // Point to itself
+        } else {
+            Node temp = head;
+            while (temp.next != head) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+            newNode.next = head; // Complete the circle
+        }
+    }
+
+    // Display roster in rotation order
+    public void displayRoster() {
+        if (head == null) {
+            System.out.println("No employees in the roster.");
+            return;
+        }
+
+        Node temp = head;
+        System.out.println("Employee Roster (Rotation Order):");
+        do {
+            System.out.println(temp.name);
+            temp = temp.next;
+        } while (temp != head);
+    }
+
+    public static void main(String[] args) {
+        EmployeeRoster roster = new EmployeeRoster();
+
+        roster.insertEmployee("Rickshitha");
+        roster.insertEmployee("Rickshi");
+        roster.insertEmployee("Rick");
+
+        roster.displayRoster();
+    }
+}
