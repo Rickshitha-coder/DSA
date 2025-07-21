@@ -1,0 +1,97 @@
+Date: 17-7-25 
+A car service center accepts up to 5 cars at a time for service. Each car is serviced in the order it arrived last in, first out (LIFO) — the latest car to enter is serviced first (stack behavior). If the service bay is full, new cars are asked to wait. When a car is done, it is removed from the top of the stack. Add a car to the service bay. Remove the last car (serviced). Display all cars currently in service. Use menu-based service (Stack using array implementation)
+
+
+package julyHometask;
+import java.util.*;
+
+class Car {
+    String carname;
+
+    Car(String carname) {
+        this.carname = carname;
+    }
+
+    void display() {
+        System.out.println("Car Name - " + carname);
+    }
+}
+
+public class july17hw {
+    static int top = -1;
+    static final int size = 5;
+    static Car[] carray = new Car[size];
+
+    // Push method to add a car
+    public static void push(Car c) {
+        if (top == size - 1) {
+            System.out.println("Service shed is full -- wait for some time.");
+        } else {
+            top++;
+            carray[top] = c;
+            System.out.println(c.carname + " is going to service " + (top + 1));
+        }
+    }
+
+    // Pop method to remove the last car
+    public static void pop() {
+        if (top == -1) {
+            System.out.println("No Cars Are Available to service.");
+        } else {
+            System.out.println(carray[top].carname + " has completed the service.");
+            carray[top].display();
+            top--;
+        }
+    }
+
+    // Display all cars in the stack
+    public static void display() {
+        if (top == -1) {
+            System.out.println("No Cars Are Available.");
+        } else {
+            System.out.println("Cars available for service:");
+            for (int i = top; i >= 0; i--) {
+                carray[i].display();
+            }
+        }
+    }
+
+    // Main menu method
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\n----Car Services----");
+            System.out.println("1. Add a car to the service bay.");
+            System.out.println("2. Serviced Car (Completed).");
+            System.out.println("3. Display all current Cars.");
+            System.out.println("4. Exit.");
+            System.out.print("Enter your choice: ");
+            choice = s.nextInt();
+            s.nextLine();  
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Car name to service: ");
+                    String carname = s.nextLine();
+                    push(new Car(carname));
+                    break;
+                case 2:
+                    pop();
+                    break;
+                case 3:
+                    display();
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Please enter a valid choice (1-4).");
+            }
+        } while (choice != 4);
+
+        s.close();
+    }
+}
+
