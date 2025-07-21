@@ -1,0 +1,72 @@
+Date: 18-7-25 
+A student gives an online quiz. The result system uses a postfix expression to calculate the total score based on the answers and weightage. The evaluator evaluates expressions like "93+5*" (which is equivalent to (9 + 3) * 5) to calculate the score dynamically. Your task is to: • Evaluate different postfix expressions. • Explain each step (can be printed as stack trace). • Accept multiple expressions as sample inputs. (Get user input) Writing a Java program to evaluate postfix expressions
+
+package julyHometask;
+
+import java.util.*;
+
+public class july18hw {
+
+    // Method to evaluate a postfix expression
+    public static int evaluatePostfix(String postfix) {
+        Stack<Integer> stack = new Stack<>();
+
+        System.out.println("\nEvaluating: " + postfix);
+        for (int i = 0; i < postfix.length(); i++) {
+            char ch = postfix.charAt(i);
+
+            // If character is digit
+            if (Character.isDigit(ch)) {
+                int num = ch - '0';  // Convert char to int
+                stack.push(num);
+                System.out.println("Pushed " + num + " => Stack: " + stack);
+            } else {
+                // Pop two elements for operation
+                int right = stack.pop();  // last number added(top of stack)
+                int left = stack.pop(); //last before
+                int result = 0;
+
+                switch (ch) {
+                    case '+':
+                        result =right+left;
+                        break;
+                    case '-':
+                        result = right-left;
+                        break;
+                    case '*':
+                        result = right*left;
+                        break;
+                    case '/':
+                        result = right/left;
+                        break;
+                    default:
+                        System.out.println("Invalid operator: " + ch);
+                        return 0;
+                }
+
+                stack.push(result);
+                System.out.println("Applied " + left + " " + ch + " " + right + " => Pushed " + result + " => Stack: " + stack);
+            }
+        }
+
+        return stack.pop(); // Final result
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Postfix Expression Evaluator");
+        System.out.println("Enter number of expressions: ");
+        int n = sc.nextInt();
+        sc.nextLine(); 
+        //Loop to accept and evaluate multiple expressions.
+        for (int i = 1; i <= n; i++) {
+            System.out.println("\nEnter expression " + i + ": ");
+            String expr = sc.nextLine();
+            int result = evaluatePostfix(expr);
+            System.out.println("Final Answer = " + result);
+        }
+
+        sc.close();
+    }
+}
