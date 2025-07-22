@@ -1,0 +1,111 @@
+Date: 21-7-25 
+In a college library, students return books one by one. The librarian places each returned book on top of a return stack for sorting and re-shelving. The last book returned must be processed first, hence the Last-In-First-Out (LIFO) approach. Implement this book return stack using a linked list-based stack in Java. Push: Add a returned book to the stack. Pop: Process and remove the top book from the stack. Peek: View the latest returned book. Display: List all returned books from top to bottom.
+
+package julyHometask;
+import java.util.Scanner;
+class BookNode {
+ String bookTitle;
+ BookNode next;
+
+ public BookNode(String bookTitle) {
+     this.bookTitle = bookTitle;
+     this.next = null;
+ }
+}
+
+
+class BookStack {
+ private BookNode top;
+
+ public BookStack() {
+     this.top = null;
+ }
+
+ public void push(String bookTitle) {
+     BookNode newBook = new BookNode(bookTitle);
+     newBook.next = top;
+     top = newBook;
+     System.out.println("Book returned: " + bookTitle);
+ }
+
+ 
+ public void pop() {
+     if (top == null) {
+         System.out.println("Stack is empty. No books to process.");
+     } else {
+         System.out.println(" Book processed: " + top.bookTitle);
+         top = top.next;
+     }
+ }
+
+ // Peek: View latest returned book
+ public void peek() {
+     if (top == null) {
+         System.out.println(" No books in stack.");
+     } else {
+         System.out.println(" Latest returned book: " + top.bookTitle);
+     }
+ }
+
+ 
+ public void display() {
+     if (top == null) {
+         System.out.println("No books in the return stack.");
+     } else {
+         System.out.println("Returned Books Stack (Top to Bottom):");
+         BookNode current = top;
+         while (current != null) {
+             System.out.println("> " + current.bookTitle);
+             current = current.next;
+         }
+     }
+ }
+}
+
+
+public class july21hw {
+ public static void main(String[] args) {
+     Scanner scanner = new Scanner(System.in);
+     BookStack bookStack = new BookStack();
+     int choice;
+     String bookTitle;
+
+     System.out.println(" Welcome to College Library Book Return System (LIFO)\n");
+
+     do {
+         System.out.println("\nMenu:");
+         System.out.println("1. Return a Book (Push)");
+         System.out.println("2. Process Returned Book (Pop)");
+         System.out.println("3. View Latest Returned Book (Peek)");
+         System.out.println("4. Display All Returned Books");
+         System.out.println("5. Exit");
+         System.out.print("Enter your choice: ");
+         choice = scanner.nextInt();
+         scanner.nextLine(); // clear buffer
+
+         switch (choice) {
+             case 1:
+                 System.out.print("Enter book title to return: ");
+                 bookTitle = scanner.nextLine();
+                 bookStack.push(bookTitle);
+                 break;
+             case 2:
+                 bookStack.pop();
+                 break;
+             case 3:
+                 bookStack.peek();
+                 break;
+             case 4:
+                 bookStack.display();
+                 break;
+             case 5:
+                 System.out.println(" Exiting... Have a nice day!");
+                 break;
+             default:
+                 System.out.println("⚠️ Invalid choice. Try again.");
+         }
+     } while (choice != 5);
+
+    
+ }
+}
