@@ -1,0 +1,68 @@
+Date: 19/07/2025
+package july;
+class Queue{
+	int Front,rear,capacity;
+	int QArray[];
+	
+	Queue(int size){
+		Front=rear=0;
+		capacity =size;
+		QArray=new int[capacity];
+	}
+	
+	public void enqueue(int value) {
+		if(rear==capacity) {
+			System.out.println("Queue is full");
+			return;
+		}
+		else {
+		
+			QArray[rear]=value;
+			rear=rear+1;
+			System.out.println(value+" is inserted");
+		}
+	}
+	
+	public void dequeue() {
+		if(Front==rear) {
+			System.out.println("Queue is Empty");
+			return;
+		}
+		else {
+			System.out.println(QArray[Front]+" is removed");
+			for(int i=0;i<rear-1;i++) {
+				QArray[i]=QArray[i+1];
+			}
+			rear=rear-1;
+		}
+		
+	}
+	void display() {
+		if(Front==rear) {
+			System.out.println("Queue is emoty");
+			return;
+		}
+		System.out.println("Queue is ....");
+		for(int i=0;i<rear;i++) {
+			System.out.println(QArray[i]);
+		}
+	}
+}
+public class july19 {
+
+	public static void main(String[] args) {
+		Queue c=new Queue(5);
+		c.enqueue(10);
+		c.enqueue(20);
+		c.enqueue(30);
+		c.enqueue(40);
+		c.enqueue(50);
+		System.out.println("-----");
+		c.display();
+		System.out.println("--After Dequeue--");
+		c.dequeue();
+		c.display();
+
+	}
+
+}
