@@ -1,0 +1,84 @@
+Date: 22-7-25 
+Scenario: College Exam Paper Collection During semester exams, invigilators collect answer scripts from students. Each script is placed on top of a stack on the exam supervisor’s desk. The last script collected must be evaluated first, following the Last-In-First-Out (LIFO) order. Design and implement this answer script collection system using a linked list-based stack in Java. Operations to Implement: • Push: Add a newly collected answer script to the top of the stack. • Pop: Remove and process the top answer script (the one to be evaluated first). • Peek: View the most recently collected script (without removing it). • Display: Print all collected scripts from top to bottom. Data to Store per Script: • scriptID (e.g., "EX123") • studentName (e.g., "Priya Sharma")
+
+package julyHometask;
+
+//Node class representing a single answer script
+class ScriptNode {
+ String scriptID;
+ String studentName;
+ ScriptNode next;
+
+ public ScriptNode(String scriptID, String studentName) {
+     this.scriptID = scriptID;
+     this.studentName = studentName;
+     this.next = null;
+ }
+}
+
+//Stack class using linked list
+class AnswerScriptStack {
+ private ScriptNode top;
+
+ public AnswerScriptStack() {
+     top = null;
+ }
+
+ // Push operation - add new script on top
+ public void push(String scriptID, String studentName) {
+     ScriptNode newScript = new ScriptNode(scriptID, studentName);
+     newScript.next = top;
+     top = newScript;
+     System.out.println("Script added: " + scriptID + " - " + studentName);
+ }
+
+ // Pop operation - remove and return top script
+ public void pop() {
+     if (top == null) {
+         System.out.println("Stack is empty. No script to evaluate.");
+         return;
+     }
+     System.out.println("Evaluating script: " + top.scriptID + " - " + top.studentName);
+     top = top.next;
+ }
+
+ // Peek operation - view top script
+ public void peek() {
+     if (top == null) {
+         System.out.println("Stack is empty.");
+         return;
+     }
+     System.out.println("Top script: " + top.scriptID + " - " + top.studentName);
+ }
+
+
+ public void display() {
+     if (top == null) {
+         System.out.println("No scripts collected yet.");
+         return;
+     }
+     System.out.println("\nCollected Scripts (Top to Bottom):");
+     ScriptNode current = top;
+     while (current != null) {
+         System.out.println("Script ID: " + current.scriptID + ", Student: " + current.studentName);
+         current = current.next;
+     }
+ }
+}
+
+
+public class july22hw {
+ public static void main(String[] args) {
+     AnswerScriptStack stack = new AnswerScriptStack();
+
+          stack.push("123", "Rickshitha");
+     stack.push("124", "Rickshi");
+     stack.push("125", "Rick");
+
+     stack.peek();   
+     stack.display();
+
+     stack.pop();     
+     stack.display(); 
+ }
+}
