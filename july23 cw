@@ -1,0 +1,95 @@
+package july;
+class QueueNode{
+	int data;
+	QueueNode next;
+	//node creation consturtor
+	QueueNode(int data)
+	{
+		this.data=data;
+		this.next=null;
+	}
+}
+
+public class july23 {
+	QueueNode front,rear;
+	//object creation
+	july23()
+	{
+	 this.front=null;
+	 this.rear=null;
+	}
+	
+	void enqueue(int value) 
+	{
+	QueueNode newNode=new QueueNode(value);
+	
+		if(rear==null)  //if list is empty
+		{
+			front = rear =newNode;
+		}
+		else
+		{
+			rear.next=newNode;  //last element oda next ha newnode solurom
+			rear=newNode;  //epa last rear vanthu newnode 
+		}
+		System.out.println(value+" is inserted successfully");
+	}
+	
+	
+	void dequeue()
+	{
+		if(front==null)
+		{
+			System.out.println("List is empty...");
+			return;
+		}
+		int dValue=front.data;  //currently delte the first data
+		front=front.next; //change the front to front.next like next element 
+		System.out.println(dValue+"  is dequeued");	
+	}
+	
+	int peek() 
+	{
+		if(front==null) 
+		{
+			System.out.println("List is empty...");
+			return -1;
+		}
+		
+		return front.data;
+	}
+	
+	void display()
+	{
+		QueueNode temp=front;
+		if(temp==null)
+		{
+			System.out.println("List is empty");
+			return;
+		}
+		System.out.println("Queue is....");
+		while(temp!=null) {
+			System.out.print(temp.data+" -> ");
+			temp=temp.next;
+		}System.out.println("Null");
+	}
+	
+	
+	public static void main(String[] args) {
+		july23 c=new july23();
+		c.enqueue(10);
+		c.enqueue(20);
+		c.enqueue(30);
+		
+		c.display();
+		
+		//dequeue
+		c.dequeue();
+		c.display();
+		
+		//peek
+		System.out.println("Peek Operation : "+c.peek());
+		c.display();
+	}
+
+}
