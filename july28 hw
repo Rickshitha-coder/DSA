@@ -1,0 +1,55 @@
+Date: 28-7-25 Each node in the binary tree stores a student's name. We want to: • Traverse the student list in preorder (root-left-right) to record attendance. • Traverse the list in postorder (left-right-root) to send emails after the session. 
+package julyHometask;
+
+class Treenode{
+	String name;
+	Treenode left,right;
+	
+	public Treenode(String name) {
+		this.name=name;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class july28hw {
+	Treenode root;
+	
+	void preorder(Treenode node)
+	{
+		if(node==null)
+			return;
+		System.out.print(node.name+",");
+		preorder(node.left);
+		preorder(node.right);
+	}
+	
+	void postorder(Treenode node)
+	{
+		if(node==null)
+			return;
+		postorder(node.left);
+		postorder(node.right);
+		System.out.print(node.name+",");
+	}
+
+	public static void main(String[] args) {
+		july28hw t=new july28hw();
+		t.root=new Treenode("Anu");
+		t.root.left=new Treenode("Bala");
+		t.root.right=new Treenode("Divya");
+		t.root.left.left=new Treenode("Charu");
+		t.root.left.right=new Treenode("Deepa");
+		t.root.right.right=new Treenode("Elam");
+		//preorder -- Root-left-right
+		System.out.println("Attendence Record");
+		t.preorder(t.root);
+		System.out.println("Null");
+		//postorder --left-right-root
+		System.out.println("Emails After Session");
+		t.postorder(t.root);
+		System.out.println("Null");
+		
+	}
+
+}
+
