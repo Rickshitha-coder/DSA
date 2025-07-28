@@ -1,0 +1,67 @@
+Date : 28/07/2025
+
+package july;
+
+class TraverseNode
+{
+	int data;
+	TraverseNode left,right;
+	
+	//constructor
+	
+	public TraverseNode(int value)
+	{
+		data=value;
+		this.left=null;
+		this.right=null;
+	}
+}
+public class july28 {
+	TraverseNode root;
+	
+	//preorder -- Root-left-right
+	void preorder(TraverseNode node) 
+	{
+		if(node==null)
+		{
+			return;
+		}
+		System.out.print(node.data+",");//root
+		preorder(node.left);  //recurivse call
+		preorder(node.right);  //recurvise call
+	}
+	
+	//postorder --left-right-root
+	void postorder(TraverseNode node)
+	{
+		if(node==null)
+			return;
+		postorder(node.left);
+		postorder(node.right); //recurvise call
+		System.out.print(node.data+",");
+		
+	}
+	
+	public static void main(String[] args) {
+		july28 t=new july28();
+		t.root=new TraverseNode(1);
+		t.root.left=new TraverseNode(2);
+		t.root.right=new TraverseNode(3);
+		t.root.left.left=new TraverseNode(4);
+		t.root.left.right=new TraverseNode(5);
+		t.root.right.left=new TraverseNode(6);
+		t.root.right.right=new TraverseNode(7);
+		
+		System.out.println("PreOrder  Traversal -->Root-left-right");
+		t.preorder(t.root);
+		System.out.println("");
+		
+		System.out.println("\nPostOrder  Traversal -->left-right-root");
+		t.postorder(t.root);
+		System.out.println("");
+		
+
+	}
+
+}
+
