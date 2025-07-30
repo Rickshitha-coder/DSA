@@ -1,0 +1,44 @@
+package hackerrank;
+import java.util.*;
+class Node {
+	int id;
+	Node next;
+	
+	public Node(int id) {
+		this.id=id;
+		this.next=null;
+	}
+}
+public class HR2 {
+	Node head;
+	
+	public void insertatfront(int id) {
+		Node newNode=new Node(id);
+		newNode.next = head;
+        head = newNode;
+	}
+	
+	public void display() {
+		Node temp=head;
+		while(temp!=null) {
+			System.out.print(temp.id+" ");
+			temp=temp.next;
+		}
+	}
+	public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter how many number of task id : ");
+        
+        int n = sc.nextInt();               
+        HR2 list = new HR2();
+        
+        for (int i = 0; i < n; i++) {
+            int taskId = sc.nextInt();
+            list.insertatfront(taskId);
+        }
+
+        list.display();
+        sc.close();
+    }
+
+}
