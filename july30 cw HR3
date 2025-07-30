@@ -1,0 +1,97 @@
+package hackerrank;
+
+import java.util.Scanner;
+
+class TaskNode {
+    int taskid;
+    TaskNode next;
+
+    public TaskNode(int taskid) {
+        this.taskid = taskid;
+        this.next = null;
+    }
+}
+
+public class HR3 {
+    TaskNode head;
+
+    public void insertatend(int taskid) {
+        TaskNode newNode = new TaskNode(taskid);
+        if (head == null) {
+            head = newNode;
+        } else {
+            TaskNode temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+        //System.out.println(taskid + " inserted at end");
+    }
+
+    public void insertAtPosition(int position,int taskid) {
+        TaskNode newNode = new TaskNode(taskid);
+
+        if (position <= 0) {
+            System.out.println("Invalid position");
+            return;
+        }
+
+        if (position == 1) {
+            newNode.next = head;
+            head = newNode;
+            //System.out.println(taskid + " inserted at position " + position);
+            return;
+        }
+
+        TaskNode temp = head;
+        int count = 1;
+        while (temp != null && count < position - 1) {
+            temp = temp.next;
+            count++;
+        }
+
+        if (temp == null) {
+            System.out.println("Position out of range");
+        } else {
+            newNode.next = temp.next;
+            temp.next = newNode;
+           // System.out.println(taskid + " inserted at position " + position);
+        }
+    }
+
+    public void display() {
+        if (head == null) {
+            System.out.println("No task IDs are there");
+            return;
+        }
+        TaskNode temp = head;
+        //System.out.print("Task IDs: ");
+        while (temp != null) {
+            System.out.print(temp.taskid + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        HR3 q = new HR3();
+
+       // System.out.print("Enter number of task IDs to insert at end: ");
+        int n = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            int id = sc.nextInt();
+            q.insertatend(id);
+        }
+        q.display();
+
+        //System.out.print("Enter position: ");
+        int pos = sc.nextInt();
+        //System.out.print("Enter task ID to insert at specific position: ");
+        int newId = sc.nextInt();
+        q.insertAtPosition(pos,newId);
+
+        q.display();
+    }
+}
