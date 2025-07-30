@@ -1,0 +1,90 @@
+DATE : 30/07/2025  HR HW
+You are building a task management system where tasks are stored in a singly linked list. Each task has a unique integer taskID. Tasks are arranged in the order they are added. You are required to implement a function that deletes a task at a given position. Input Format • The first line contains an integer n, the number of tasks. • The second line contains n space-separated integers: the task IDs in the initial list. • The third line contains an integer position, the index (0-based) of the node to delete. Output Format • Print the updated task list after deletion, with each task ID separated by a space. Sample Input: 5 101 102 103 104 105 2 Sample Output 101 102 104 105 Constraints • 1 ≤ n ≤ 1000 • 0 ≤ position < n Task list before deletion: 101 -> 102 -> 103 -> 104 -> 105 After deleting the task at position 2 (i.e., task 103): 101 -> 102 -> 104 -> 105
+package hackerrank;
+import java.util.*;
+class taskNode{
+	int task_no;
+	taskNode next;
+	
+	taskNode(int task_no){
+		this.task_no=task_no;
+		this.next=null;
+	}
+	
+}
+
+
+public class HR4 {
+	taskNode head;
+	
+	public void insertatend(int task_no)
+	{
+		taskNode newNode=new taskNode(task_no);
+		if(head==null)
+		{
+			head=newNode;
+			return;
+		}
+		else {
+			taskNode temp=head;
+			while(temp.next!=null) {
+				
+				temp=temp.next;
+			}
+			temp.next=newNode;
+		}
+	}
+	
+	public void deleteposition(int pos) {
+		if(pos<1 || head==null) {
+			System.out.println("No valid position...");
+			return;
+		}
+		if(pos==1) {
+			System.out.println(head.task_no);
+			head=head.next;
+			return;	
+		}
+		taskNode temp=head;
+		for(int i=1; i<pos-1 && temp!=null; i++) {
+			temp=temp.next;
+		}
+		if(temp == null || temp.next==null){
+	           System.out.println("Out of Range");
+	       }
+	       //System.out.println("Deleted Data at specific posiiton : "+temp.next.task_no);
+	       temp.next=temp.next.next;
+	}
+	
+	public void display() {
+		if(head==null) {
+			System.out.println("No Task No are there");
+			return;
+		}
+		taskNode temp=head;
+		while(temp!=null) {
+			System.out.print(temp.task_no+" ");
+			temp=temp.next;
+		}
+		System.out.println();
+	}
+	public static void main(String[] args) {
+		HR4 q=new HR4();
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		for(int i=0;i<n;i++) {
+			int id = sc.nextInt();
+            q.insertatend(id);
+		}
+
+		
+		int pos = sc.nextInt();
+        //System.out.print("Enter task ID to insert at specific position: ");
+      
+        q.deleteposition(pos);
+
+        q.display();
+	}
+
+}
+
