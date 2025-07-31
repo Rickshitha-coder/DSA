@@ -1,0 +1,124 @@
+Date : 31-07-25 HR HW
+You are managing a list of tasks for a project using a singly linked list. Each task has a unique ID and a name. The tasks are arranged based on the order in which they are added. Write a program that removes a task from a specific position in the linked list (0-based index). Input Format: • The first line contains an integer n, the number of initial tasks. • The next n lines contain two values each: an integer id and a string name, representing each task. • The next line contains an integer pos, the position of the task to be removed. Output Format: • Print the updated task list after deletion, each task on a new line in the format: id name • If the position is invalid, print: Invalid position Constraints: • 0 <= n <= 1000 • 0 <= id <= 10000 • 1 <= name length <= 20 • 0 <= pos < n Sample Input: 4 101 Design 102 Development 103 Testing 104 Deployment 2 Sample Output: 101 Design 102 Development 104 Deployment
+package hackerrank;
+import java.util.*;
+class task{
+	int taskid;
+	String taskname;
+	task next;
+	
+	task(int taskid,String taskname){
+		this.taskid=taskid;
+		this.taskname=taskname;
+		this.next=null;
+	}
+}
+public class HR6 {
+	task head;
+	
+	public void insertatend(int taskid,String taskname) {
+		task newNode=new task(taskid,taskname);
+		if(head==null) {
+			head=newNode;
+			return;
+		}
+		task temp=head;
+		while(temp.next!=null) {
+			temp=temp.next;
+		}temp.next=newNode;
+	}
+	
+	public void deleteposition(int pos) {
+	    if (pos < 1 || head == null) {
+	        System.out.println("Invalid position or empty list.");
+	        return;
+	    }
+	    if (pos == 1) {
+	        System.out.println("Deleted: " + head.taskid + " " + head.taskname);
+	        head = head.next;
+	        return;
+	    }
+	    task temp = head;
+	    for (int i = 0; i < pos - 1 && temp != null; i++) {
+	        temp = temp.next;
+	    }
+
+	    if (temp == null || temp.next == null) {
+	        System.out.println("Position out of range.");
+	        return;
+	    }
+
+	    System.out.println("Deleted: " + temp.next.taskid + " " + temp.next.taskname);
+	    temp.next = temp.next.next;
+	}
+
+	
+	public void display() {
+		if(head==null) {
+			System.out.println("No List are there");
+			return;
+		}
+		task temp=head;
+		while(temp!=null) {
+			System.out.println(temp.taskid+" "+temp.taskname);
+			temp=temp.next;
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		HR6 q=new HR6();
+		String choice;
+		
+		do {
+            System.out.println("\n TASK MENU");
+            System.out.println("add-->insert the task id and name");
+            System.out.println("delete -->delete the task");
+            System.out.println("print -->display task");
+            System.out.println("exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.next();
+            sc.nextLine(); 
+            
+            switch(choice) {
+            case "add":
+            		System.out.println("Enter the number of items to add :");
+            		int n=sc.nextInt();
+            		sc.nextLine();
+            		for(int i=0;i<n;i++) {
+            		System.out.print("Enter Task ID: ");
+                int id = sc.nextInt();
+                sc.nextLine(); 
+                System.out.print("Enter Task Name: ");
+                String name = sc.nextLine();
+                q.insertatend(id, name);
+                System.out.println(" Task added successfully!");
+                
+            		}
+            		break;
+            case "delete":
+            	 System.out.print("Enter position to delete: ");
+                 int pos = sc.nextInt();
+                 sc.nextLine(); 
+                 q.deleteposition(pos);
+                 break;
+
+             case "print":
+                 q.display();
+                 break;
+
+             case "exit":
+                 System.out.println(" Exiting program...");
+                 break;
+
+             default:
+                 System.out.println("Invalid command! Please use add, delete, print, or exit.");
+         }
+         }while (!choice.equals("exit")); 
+           
+	}
+
+}
+
+
