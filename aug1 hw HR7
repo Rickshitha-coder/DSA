@@ -1,0 +1,60 @@
+DATE: 01/08/2025 HW HR7
+You are building a library catalog where each book has a book ID and title. Books are stored in a linked list. Write a program to append a new book at the end of the catalog and display the full list. Sample Input: 3 101 Data Structures 102 Java Programming 103 Database Systems Sample output: Library Catalog: 101 - Data Structures 102 - Java Programming 103 - Database Systems
+package hackerrank;
+import java.util.*;
+
+class Book {
+    int bookID;
+    String title;
+    Book next;
+
+    Book(int bookID, String title) {
+        this.bookID = bookID;
+        this.title = title;
+        this.next = null;
+    }
+}
+
+public class HR7 {
+    Book head;
+
+    public void appendBook(int bookID, String title) {
+        Book newBook = new Book(bookID, title);
+        if (head == null) {
+            head = newBook;
+        } else {
+            Book temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newBook;
+        }
+    }
+
+    public void display() {
+        System.out.println("Library Catalog:");
+        Book current = head;
+        while (current != null) {
+            System.out.println(current.bookID + " - " + current.title);
+            current = current.next;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        HR7 catalog = new HR7();
+
+        int n = sc.nextInt(); // Number of books
+        sc.nextLine(); // consume leftover newline
+
+        for (int i = 0; i < n; i++) {
+            int id = Integer.parseInt(sc.nextLine());
+            String title = sc.nextLine();
+            catalog.appendBook(id, title);
+        }
+
+        catalog.display();
+        sc.close();
+    }
+}
+
