@@ -1,0 +1,27 @@
+Date : 26-8-2025
+ 
+import java.util.*;
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        ListNode temp = head;
+
+        // Copy values into array
+        while (temp != null) {
+            arr.add(temp.val);
+            temp = temp.next;
+        }
+
+        // Two-pointer check
+        int left = 0, right = arr.size() - 1;
+        while (left < right) {
+            if (!arr.get(left).equals(arr.get(right))) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+}
